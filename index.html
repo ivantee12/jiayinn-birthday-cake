@@ -132,6 +132,15 @@ body.dim { --fg:#F6E7D3; --muted:#BFA38F; --accent:#F0558A; --accent-fg:#2A0D18;
 .tools button { appearance: none; background: none; border: 0; border-bottom: 1px dashed var(--muted); color: var(--muted); font: inherit; cursor: pointer; padding: 2px 0; }
 .tools button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
+#gate { position: fixed; inset: 0; z-index: 20; display: grid; place-content: center; gap: 14px; justify-items: center; text-align: center; background: var(--bg); padding: 24px; transition: opacity .6s ease; }
+#gate.open { opacity: 0; pointer-events: none; }
+#gate h2 { font: 400 clamp(26px, 7vw, 34px)/1.2 var(--display); margin: 0; }
+#gate input { font: 400 18px var(--body); color: var(--fg); background: var(--surface); border: 1px solid transparent; border-radius: 12px; padding: 12px 16px; width: 12em; text-align: center; }
+#gate input:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+#gate p { margin: 0; min-height: 1.6em; font-size: 14px; color: var(--muted); }
+#gate.bad input { animation: shake .4s; }
+@keyframes shake { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+.who { display: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
@@ -199,6 +208,7 @@ body.dim { --fg:#F6E7D3; --muted:#BFA38F; --accent:#F0558A; --accent-fg:#2A0D18;
     </label>
   </div>
 </main>
+<form id="gate" autocomplete="off"><h2>这份礼物是给谁的？</h2><input id="who2" type="text" maxlength="12" aria-label="名字" autocapitalize="off" autocorrect="off" spellcheck="false"><button class="main" type="submit">打开</button><p id="gerr" aria-live="polite"></p></form>
 <div id="dim"></div><canvas id="sky" aria-hidden="true"></canvas><canvas id="fx" aria-hidden="true"></canvas>
 
 <script>
@@ -312,6 +322,7 @@ body.dim { --fg:#F6E7D3; --muted:#BFA38F; --accent:#F0558A; --accent-fg:#2A0D18;
     if (state !== 'idle') return;
     c.classList.remove('out');
     c.classList.toggle('lit');
+    if (c.classList.contains('lit')) song();
     refresh();
   }
   $('#candles').addEventListener('click', function (e) {
@@ -374,17 +385,18 @@ body.dim { --fg:#F6E7D3; --muted:#BFA38F; --accent:#F0558A; --accent-fg:#2A0D18;
   });
 
   // Music box: Happy Birthday on a soft triangle wave
-  var sound = true, ac2;
+  var sound = true, ac2, until = 0;
   function song() {
     if (!sound) return;
-    try { ac2 = ac2 || new (window.AudioContext || window.webkitAudioContext)(); ac2.resume(); } catch (e) { return; }
+    try { ac2 = ac2 || new (window.AudioContext || window.webkitAudioContext)(); ac2.resume(); if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) { return; }
+    if (ac2.currentTime < until) return;
     var n = [392,392,440,392,523,494,392,392,440,392,587,523,392,392,784,659,523,494,440,698,698,659,523,587,523],
         d = [.75,.25,1,1,1,2,.75,.25,1,1,1,2,.75,.25,1,1,1,1,2,.75,.25,1,1,1,2], t = ac2.currentTime + .15;
     n.forEach(function (f, i) {
       var o = ac2.createOscillator(), g = ac2.createGain();
       o.type = 'triangle'; o.frequency.value = f;
-      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.12, t + .01); g.gain.exponentialRampToValueAtTime(.001, t + .9);
-      o.connect(g); g.connect(ac2.destination); o.start(t); o.stop(t + 1); t += d[i] * .5;
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.35, t + .01); g.gain.exponentialRampToValueAtTime(.001, t + .9);
+      o.connect(g); g.connect(ac2.destination); o.start(t); o.stop(t + 1); t += d[i] * .5; until = t;
     });
   }
   $('#snd').addEventListener('click', function () {
@@ -403,8 +415,9 @@ body.dim { --fg:#F6E7D3; --muted:#BFA38F; --accent:#F0558A; --accent-fg:#2A0D18;
     if (mic) { stopMic(); refresh(); return; }
     if (state !== 'idle' || !litCount()) { msg.textContent = '先点燃蜡烛，再对着手机吹气。'; return; }
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg.textContent = '这个浏览器不支持麦克风，点下面的按钮也能吹灭。'; return; }
+    var ac = new (window.AudioContext || window.webkitAudioContext)(); ac.resume();
     navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }).then(function (s) {
-      var ac = new (window.AudioContext || window.webkitAudioContext)(), an = ac.createAnalyser(), buf, acc = 0;
+      var an = ac.createAnalyser(), buf, acc = 0, base = 0, n = 0; ac.resume();
       an.fftSize = 512; buf = new Uint8Array(an.fftSize);
       ac.createMediaStreamSource(s).connect(an); mic = { s: s, ac: ac };
       msg.textContent = '对准麦克风，用力吹一口气……';
@@ -412,12 +425,13 @@ body.dim { --fg:#F6E7D3; --muted:#BFA38F; --accent:#F0558A; --accent-fg:#2A0D18;
         if (!mic) return;
         an.getByteTimeDomainData(buf);
         var sum = 0; for (var i = 0; i < buf.length; i++) { var v = (buf[i] - 128) / 128; sum += v * v; }
-        acc = Math.sqrt(sum / buf.length) > .15 ? acc + 1 : Math.max(0, acc - 2);
+        var lv = Math.sqrt(sum / buf.length);
+        if (n < 20) { base = Math.max(base, lv); n++; } else acc = lv > Math.max(.07, base * 2.5) ? acc + 1 : Math.max(0, acc - 2);
         candles.forEach(function (c) { c.style.setProperty('--lean', Math.min(1, acc / 24)); });
         if (acc > 24) { blow(); return; }
         requestAnimationFrame(loop);
       })();
-    }).catch(function () { msg.textContent = '没有拿到麦克风权限，直接点按钮也可以吹灭。'; });
+    }).catch(function () { try { ac.close(); } catch (e) {} msg.textContent = '没有拿到麦克风权限，直接点按钮也可以吹灭。'; });
   });
 
   // Night sky: stars appear when the room dims; 23 wish stars fly from the candles and draw a heart
@@ -459,6 +473,22 @@ body.dim { --fg:#F6E7D3; --muted:#BFA38F; --accent:#F0558A; --accent-fg:#2A0D18;
     sc.shadowBlur = 0;
     if (ws.length || ga > .01 || skyTarget) requestAnimationFrame(skyTick); else { run = false; sc.clearRect(0, 0, W, H); }
   }
+
+  // Name gate: only "Jiayinn" or "jiayinn" opens the page
+  var gate = $('#gate'), mainEl = document.querySelector('main');
+  mainEl.inert = true;
+  gate.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = $('#who2').value.trim();
+    if (v === 'Jiayinn' || v === 'jiayinn') {
+      nameEl.value = 'Jiayinn'; mainEl.inert = false; gate.classList.add('open');
+      setTimeout(function () { gate.hidden = true; }, 700);
+    } else {
+      gate.classList.remove('bad'); void gate.offsetWidth; gate.classList.add('bad');
+      $('#gerr').textContent = '不对哦，再想想。';
+    }
+  });
+  setTimeout(function () { $('#who2').focus(); }, 50);
 
   // Confetti
   var cv = $('#fx'), ctx = cv.getContext('2d'), parts = [], running = false;
