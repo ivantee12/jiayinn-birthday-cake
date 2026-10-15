@@ -1,0 +1,502 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>23岁巧克力蛋糕</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Serif+SC:wght@600&family=Noto+Sans+SC:wght@400;500&display=swap">
+<style>
+/* Layout: one centred column. Cake on a soft candle-glow stage, headline above, one big button below. Chocolate-dark first, pink-white light variant. */
+:root {
+  --bg: #1B100C;
+  --surface: #2A1810;
+  --fg: #F6E7D3;
+  --muted: #BFA38F;
+  --accent: #F0558A;
+  --accent-fg: #2A0D18;
+  --gold: #F2BE55;
+  --glow: rgba(242, 190, 85, 0.22);
+  --choc: #5A3121;
+  --choc-deep: #3A2016;
+  --ganache: #24120B;
+  --ganache-hi: #3B1F14;
+  --icing: #F6E7D3;
+  --plate: #CDB9AA;
+  --plate-hi: #EADDCF;
+  --display: "DM Serif Display", "Noto Serif SC", Georgia, serif;
+  --body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #FCF1EE; --surface: #F4DFD8; --fg: #3A2016; --muted: #7D5F51;
+    --accent: #D63A74; --accent-fg: #FFF6F8; --gold: #E0A02A;
+    --glow: rgba(224, 160, 42, 0.22); --plate: #C9B3A3; --plate-hi: #EADBCD;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #FCF1EE; --surface: #F4DFD8; --fg: #3A2016; --muted: #7D5F51;
+  --accent: #D63A74; --accent-fg: #FFF6F8; --gold: #E0A02A;
+  --glow: rgba(224, 160, 42, 0.22); --plate: #C9B3A3; --plate-hi: #EADBCD;
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  padding-block: 20px 36px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  line-height: 1.6;
+}
+.wrap { max-width: 440px; margin: 0 auto; display: grid; gap: 14px; text-align: center; }
+.eyebrow {
+  font-size: 13px; letter-spacing: 0.22em; color: var(--gold);
+  font-variant-numeric: tabular-nums; min-height: 1.4em;
+}
+h1 {
+  font-family: var(--display); font-weight: 400; font-size: clamp(28px, 8.4vw, 38px);
+  line-height: 1.18; text-wrap: balance; min-height: 2.4em;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .35s ease, transform .35s ease;
+}
+h1.swap { opacity: 0; transform: translateY(6px); }
+.head { display: grid; gap: 4px; }
+
+.stage {
+  position: relative;
+  background: radial-gradient(circle at 50% 38%, var(--glow), transparent 66%);
+}
+.stage svg { display: block; width: 100%; height: auto; max-width: 100%; overflow: visible; }
+
+.candle { cursor: pointer; outline: none; }
+.candle:focus-visible .hit { stroke: var(--gold); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.hit { fill: transparent; }
+.flame {
+  opacity: 0; transform: scale(0.2);
+  transition: opacity .3s ease, transform .35s cubic-bezier(.3,1.5,.5,1);
+}
+.candle.lit .flame { opacity: 1; transform: none; }
+.flick { transform-box: fill-box; transform-origin: 50% 100%; animation: flick 0.9s ease-in-out infinite alternate; }
+.candle:nth-child(2n) .flick { animation-duration: 0.7s; }
+.candle:nth-child(3n) .flick { animation-duration: 1.1s; }
+@keyframes flick {
+  from { transform: scale(1, 1) rotate(-3deg); }
+  to   { transform: scale(0.94, 1.08) rotate(3deg); }
+}
+.smoke circle { opacity: 0; fill: var(--plate); }
+.candle.out .smoke circle { animation: rise 1.7s ease-out forwards; }
+.candle.out .smoke circle:nth-child(2) { animation-delay: .25s; }
+.candle.out .smoke circle:nth-child(3) { animation-delay: .5s; }
+@keyframes rise {
+  0%   { opacity: .75; transform: translate(0, 0) scale(.6); }
+  100% { opacity: 0; transform: translate(var(--dx), -40px) scale(2); }
+}
+
+.slot { transition: transform .95s cubic-bezier(.6, 0, .2, 1); }
+.slot.s2.done { transform: translateX(52.5px); }
+.slot.s3.done { transform: translateX(-52.5px); }
+.dg { transform-box: fill-box; transform-origin: 50% 50%; transition: transform .9s cubic-bezier(.5, 0, .9, .6), opacity .8s ease; }
+.dg.drop { transform: translateY(70px) rotate(20deg) scale(.45); opacity: 0; }
+.z2 .dg.drop { transform: translateY(78px) rotate(-16deg) scale(.4); }
+.cake-done { cursor: pointer; }
+
+.msg { font-size: 15px; color: var(--muted); min-height: 3.2em; text-wrap: balance; }
+.actions { display: grid; gap: 14px; justify-items: center; }
+button.main {
+  appearance: none; border: 0; cursor: pointer;
+  background: var(--accent); color: var(--accent-fg);
+  font: 500 17px/1 var(--body); letter-spacing: .08em;
+  padding: 16px 34px; border-radius: 999px; min-width: 220px;
+  transition: transform .15s ease, filter .2s ease;
+}
+button.main:hover { filter: brightness(1.08); }
+button.main:active { transform: scale(.97); }
+button.main:disabled { opacity: .55; cursor: default; }
+button.main:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.who { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+.who input {
+  font: 400 15px var(--body); color: var(--fg); background: var(--surface);
+  border: 1px solid transparent; border-radius: 10px; padding: 8px 12px; width: 9.5em; text-align: center;
+}
+.who input::placeholder { color: var(--muted); opacity: .7; }
+canvas#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
+.wrap { position: relative; z-index: 2; }
+#dim { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity 1.4s ease; background: radial-gradient(circle at 50% 42%, #2A1608 0, #0B0605 78%); }
+canvas#sky { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+body.dim #dim { opacity: .95; }
+body.dim { --fg:#F6E7D3; --muted:#BFA38F; --accent:#F0558A; --accent-fg:#2A0D18; --gold:#F2BE55; --surface:#2A1810; --glow:rgba(242,190,85,.32); --plate:#CDB9AA; --plate-hi:#EADDCF; }
+.candle.lit .flame { transform-origin: 0 0; transform: skewX(calc(var(--lean, 0) * -22deg)) scaleY(calc(1 - var(--lean, 0) * .3)); }
+.tools { display: flex; gap: 20px; font-size: 13px; }
+.tools button { appearance: none; background: none; border: 0; border-bottom: 1px dashed var(--muted); color: var(--muted); font: inherit; cursor: pointer; padding: 2px 0; }
+.tools button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+</style>
+
+<main class="wrap">
+  <div class="head">
+    <div class="eyebrow" id="eyebrow">2003 年出生</div>
+    <h1 id="title">点亮蜡烛，许个愿</h1>
+  </div>
+
+  <div class="stage">
+    <svg id="cake" viewBox="0 0 360 330" role="img" aria-label="一个巧克力蛋糕，蛋糕正面写着 2003，顶上有五根蜡烛">
+      <defs>
+        <linearGradient id="body" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0" style="stop-color: var(--choc-deep)"/>
+          <stop offset="0.35" style="stop-color: var(--choc)"/>
+          <stop offset="0.7" style="stop-color: var(--choc)"/>
+          <stop offset="1" style="stop-color: var(--choc-deep)"/>
+        </linearGradient>
+        <radialGradient id="halo">
+          <stop offset="0" style="stop-color: var(--gold); stop-opacity: .6"/>
+          <stop offset="1" style="stop-color: var(--gold); stop-opacity: 0"/>
+        </radialGradient>
+      </defs>
+
+      <ellipse cx="180" cy="306" rx="172" ry="20" fill="var(--plate)"/>
+      <ellipse cx="180" cy="300" rx="156" ry="15" fill="var(--plate-hi)"/>
+      <ellipse cx="180" cy="298" rx="146" ry="10" fill="#000" opacity=".22"/>
+
+      <!-- bottom tier -->
+      <ellipse cx="180" cy="294" rx="140" ry="12" style="fill: var(--choc-deep)"/>
+      <rect x="40" y="186" width="280" height="108" fill="url(#body)"/>
+      <ellipse cx="180" cy="190" rx="140" ry="20" style="fill: var(--ganache)"/>
+      <g id="drips1"></g>
+      <ellipse cx="180" cy="186" rx="140" ry="20" style="fill: var(--ganache-hi)"/>
+      <g id="dots1"></g>
+
+      <!-- piped number: 2003 -->
+      <g id="digits" font-family="'DM Serif Display','Noto Serif SC',Georgia,serif" font-size="54" text-anchor="middle" style="fill: var(--icing)">
+        <g class="slot s2"><g class="dg"><text x="97.5" y="272">2</text></g></g>
+        <g class="slot z1"><g class="dg"><text x="152.5" y="272">0</text></g></g>
+        <g class="slot z2"><g class="dg"><text x="207.5" y="272">0</text></g></g>
+        <g class="slot s3"><g class="dg"><text x="262.5" y="272">3</text></g></g>
+      </g>
+
+      <!-- top tier -->
+      <ellipse cx="180" cy="186" rx="95" ry="15" style="fill: var(--choc-deep)"/>
+      <rect x="85" y="120" width="190" height="66" fill="url(#body)"/>
+      <ellipse cx="180" cy="123" rx="95" ry="15" style="fill: var(--ganache)"/>
+      <g id="drips2"></g>
+      <ellipse cx="180" cy="120" rx="95" ry="15" style="fill: var(--ganache-hi)"/>
+      <g id="rim"></g>
+      <g id="candles"></g>
+    </svg>
+  </div>
+
+  <p class="msg" id="msg" aria-live="polite">也可以直接点蜡烛，一根一根点亮。</p>
+
+  <div class="actions">
+    <button class="main" id="act" type="button">点燃蜡烛</button>
+    <div class="tools"><button id="mic" type="button">🎤 对着手机吹气</button><button id="snd" type="button">🎵 音乐：开</button></div>
+    <label class="who">
+      <input id="name" type="text" maxlength="12" placeholder="" autocomplete="off">
+    </label>
+  </div>
+</main>
+<div id="dim"></div><canvas id="sky" aria-hidden="true"></canvas><canvas id="fx" aria-hidden="true"></canvas>
+
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var calm = false;
+  try { calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+  var wait = function (fn, ms) { return setTimeout(fn, calm ? 10 : ms); };
+
+  // Geometry helper: y of the front edge of an ellipse at a given x.
+  function front(x, cx, cy, rx, ry) {
+    var t = (x - cx) / rx;
+    return cy + ry * Math.sqrt(Math.max(0, 1 - t * t));
+  }
+
+  // Ganache drips and piped details
+  function drips(id, xs, hs, cx, cy, rx, ry) {
+    var out = '';
+    xs.forEach(function (x, i) {
+      var y = front(x, cx, cy, rx, ry) - 3;
+      out += '<rect x="' + (x - 6) + '" y="' + y.toFixed(1) + '" width="12" height="' + (hs[i] + 3) + '" rx="6" style="fill: var(--ganache-hi)"/>';
+    });
+    $(id).innerHTML = out;
+  }
+  drips('#drips1', [62, 94, 122, 152, 188, 226, 258, 290], [14, 26, 12, 24, 30, 16, 26, 12], 180, 186, 140, 20);
+  drips('#drips2', [108, 138, 168, 198, 228, 256], [12, 20, 10, 22, 14, 18], 180, 120, 95, 15);
+
+  var dots = '';
+  for (var x = 56; x <= 304; x += 16) {
+    dots += '<circle cx="' + x + '" cy="' + (front(x, 180, 292, 134, 11) + 1).toFixed(1) + '" r="3.6" style="fill: var(--icing)" opacity=".9"/>';
+  }
+  $('#dots1').innerHTML = dots;
+
+  var rim = '';
+  [128, 154, 180, 206, 232].forEach(function (x) {
+    rim += '<circle cx="' + x + '" cy="' + (front(x, 180, 120, 95, 15) + 1).toFixed(1) + '" r="5.5" style="fill: var(--icing)"/>';
+  });
+  [102, 258].forEach(function (x) {
+    var y = front(x, 180, 120, 95, 15) + 1;
+    rim += '<circle cx="' + x + '" cy="' + y.toFixed(1) + '" r="7.5" style="fill: var(--accent)"/>' +
+           '<circle cx="' + (x - 2.5) + '" cy="' + (y - 2.5).toFixed(1) + '" r="2" fill="#fff" opacity=".45"/>';
+  });
+  $('#rim').innerHTML = rim;
+
+  // Candles
+  var xs = [128, 154, 180, 206, 232];
+  var cols = ['--accent', '--gold', '--icing', '--gold', '--accent'];
+  var cm = '';
+  xs.forEach(function (x, i) {
+    var base = (116 + 8 * (1 - Math.pow((x - 180) / 60, 2))).toFixed(1);
+    var dx = [-6, 4, -2][i % 3];
+    cm += '<g class="candle" data-i="' + i + '" tabindex="0" role="button" aria-label="蜡烛 ' + (i + 1) + '，点按点燃或熄灭" transform="translate(' + x + ' ' + base + ')">' +
+      '<rect class="hit" x="-13" y="-66" width="26" height="70"/>' +
+      '<rect x="-4" y="-38" width="8" height="38" rx="2" style="fill: var(' + cols[i] + ')"/>' +
+      '<rect x="-4" y="-29" width="8" height="3" style="fill: var(--icing)" opacity=".55"/>' +
+      '<rect x="-4" y="-17" width="8" height="3" style="fill: var(--icing)" opacity=".55"/>' +
+      '<line x1="0" y1="-38" x2="0" y2="-43" style="stroke: var(--ganache)" stroke-width="1.6" stroke-linecap="round"/>' +
+      '<g transform="translate(0 -43)"><g class="flame">' +
+        '<circle r="22" cy="-12" fill="url(#halo)"/>' +
+        '<g class="flick">' +
+          '<path d="M0 0 C6 -7 6 -15 0 -26 C-6 -15 -6 -7 0 0Z" style="fill: var(--gold)"/>' +
+          '<path d="M0 -1 C3 -5 3 -10 0 -15 C-3 -10 -3 -5 0 -1Z" style="fill: var(--icing)"/>' +
+        '</g></g></g>' +
+      '<g class="smoke" transform="translate(0 -46)">' +
+        '<circle r="3" style="--dx:' + dx + 'px"/><circle r="2.4" style="--dx:' + (-dx) + 'px"/><circle r="2" style="--dx:' + (dx * 2) + 'px"/>' +
+      '</g></g>';
+  });
+  $('#candles').innerHTML = cm;
+
+  var candles = Array.prototype.slice.call(document.querySelectorAll('.candle'));
+  var act = $('#act'), msg = $('#msg'), titleEl = $('#title'), eyebrowEl = $('#eyebrow'), nameEl = $('#name');
+  var state = 'idle'; // idle | busy | done
+  var timers = [];
+  function later(fn, ms) { var t = wait(fn, ms); timers.push(t); return t; }
+
+  function litCount() { return candles.filter(function (c) { return c.classList.contains('lit'); }).length; }
+
+  function setTitle(text, eyebrow) {
+    titleEl.classList.add('swap');
+    wait(function () {
+      titleEl.textContent = text;
+      if (eyebrow != null) eyebrowEl.textContent = eyebrow;
+      titleEl.classList.remove('swap');
+    }, 320);
+  }
+  function doneTitle() {
+    var n = nameEl.value.trim();
+    return (n ? n + '，' : '') + '23 岁生日快乐';
+  }
+
+  function refresh() {
+    var dim = litCount() > 0 || state !== 'idle';
+    document.body.classList.toggle('dim', dim); skyTarget = dim ? 1 : 0; kick();
+    if (state === 'done') {
+      act.textContent = '再来一次'; act.disabled = false;
+      msg.textContent = ' 宝宝，生日快乐❤️ 其实我不太会说什么浪漫的话，但我真的很庆幸，这辈子能遇见你。谢谢你出现在我的生活里，让我有了想要一直陪伴的人。我知道自己不是最完美的男朋友，但我会努力成为那个让你安心、让你幸福的人。希望未来的日子里，不管开心还是难过，我都能陪在你身边。我不希望只陪你过这一次生日，我更希望往后每一年的今天，站在你身边的人依然是我。❤️我爱你，我的宝贝。🥹💕';
+      return;
+    }
+    if (state === 'busy') { act.disabled = true; return; }
+    act.disabled = false;
+    if (litCount() === 0) {
+      act.textContent = '点燃蜡烛';
+      msg.textContent = '也可以直接点蜡烛，一根一根点亮。';
+    } else {
+      act.textContent = '吹灭蜡烛，许个愿';
+      msg.textContent = '闭上眼睛，许个愿。准备好了就吹灭。';
+    }
+  }
+
+  function toggle(c) {
+    if (state !== 'idle') return;
+    c.classList.remove('out');
+    c.classList.toggle('lit');
+    refresh();
+  }
+  $('#candles').addEventListener('click', function (e) {
+    var c = e.target.closest('.candle'); if (c) toggle(c);
+  });
+  $('#candles').addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    var c = e.target.closest('.candle'); if (c) { e.preventDefault(); toggle(c); }
+  });
+
+  function lightAll() {
+    candles.forEach(function (c, i) {
+      later(function () { c.classList.remove('out'); c.classList.add('lit'); refresh(); }, i * 140);
+    });
+  }
+
+  function blow() {
+    stopMic(); state = 'busy'; refresh();
+    msg.textContent = '呼——';
+    candles.forEach(function (c) {
+      if (c.classList.contains('lit')) { c.classList.remove('lit'); c.classList.add('out'); }
+    });
+    var z1 = document.querySelector('.z1 .dg'), z2 = document.querySelector('.z2 .dg');
+    later(function () { z1.classList.add('drop'); }, 900);
+    later(function () { z2.classList.add('drop'); }, 1150);
+    later(function () {
+      document.querySelector('.s2').classList.add('done');
+      document.querySelector('.s3').classList.add('done');
+    }, 1900);
+    later(function () {
+      state = 'done';
+      setTitle(doneTitle(), '2003 → 23'); wishStars();
+      refresh();
+      burst();
+    }, 2900);
+  }
+
+  function reset() {
+    timers.forEach(clearTimeout); timers = [];
+    candles.forEach(function (c) { c.classList.remove('lit', 'out'); });
+    document.querySelectorAll('.dg').forEach(function (d) { d.classList.remove('drop'); });
+    document.querySelectorAll('.slot').forEach(function (s) { s.classList.remove('done'); });
+    state = 'idle';
+    clearSky(); setTitle('点亮蜡烛，许个愿', '2003 年出生');
+    refresh();
+  }
+
+  act.addEventListener('click', function () {
+    if (state === 'done') return reset();
+    if (state === 'busy') return;
+    if (litCount() === 0) { lightAll(); song(); } else blow();
+  });
+
+  nameEl.addEventListener('input', function () {
+    if (state === 'done') titleEl.textContent = doneTitle();
+  });
+
+  $('#cake').addEventListener('click', function (e) {
+    if (state === 'done' && !e.target.closest('.candle')) burst();
+  });
+
+  // Music box: Happy Birthday on a soft triangle wave
+  var sound = true, ac2;
+  function song() {
+    if (!sound) return;
+    try { ac2 = ac2 || new (window.AudioContext || window.webkitAudioContext)(); ac2.resume(); } catch (e) { return; }
+    var n = [392,392,440,392,523,494,392,392,440,392,587,523,392,392,784,659,523,494,440,698,698,659,523,587,523],
+        d = [.75,.25,1,1,1,2,.75,.25,1,1,1,2,.75,.25,1,1,1,1,2,.75,.25,1,1,1,2], t = ac2.currentTime + .15;
+    n.forEach(function (f, i) {
+      var o = ac2.createOscillator(), g = ac2.createGain();
+      o.type = 'triangle'; o.frequency.value = f;
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.12, t + .01); g.gain.exponentialRampToValueAtTime(.001, t + .9);
+      o.connect(g); g.connect(ac2.destination); o.start(t); o.stop(t + 1); t += d[i] * .5;
+    });
+  }
+  $('#snd').addEventListener('click', function () {
+    sound = !sound; this.textContent = '🎵 音乐：' + (sound ? '开' : '关');
+    if (ac2) { sound ? ac2.resume() : ac2.suspend(); }
+  });
+
+  // Blow into the phone: sustained loud breath noise puts the candles out
+  var mic = null;
+  function stopMic() {
+    if (!mic) return;
+    mic.s.getTracks().forEach(function (k) { k.stop(); }); mic.ac.close(); mic = null;
+    candles.forEach(function (c) { c.style.setProperty('--lean', 0); });
+  }
+  $('#mic').addEventListener('click', function () {
+    if (mic) { stopMic(); refresh(); return; }
+    if (state !== 'idle' || !litCount()) { msg.textContent = '先点燃蜡烛，再对着手机吹气。'; return; }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { msg.textContent = '这个浏览器不支持麦克风，点下面的按钮也能吹灭。'; return; }
+    navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }).then(function (s) {
+      var ac = new (window.AudioContext || window.webkitAudioContext)(), an = ac.createAnalyser(), buf, acc = 0;
+      an.fftSize = 512; buf = new Uint8Array(an.fftSize);
+      ac.createMediaStreamSource(s).connect(an); mic = { s: s, ac: ac };
+      msg.textContent = '对准麦克风，用力吹一口气……';
+      (function loop() {
+        if (!mic) return;
+        an.getByteTimeDomainData(buf);
+        var sum = 0; for (var i = 0; i < buf.length; i++) { var v = (buf[i] - 128) / 128; sum += v * v; }
+        acc = Math.sqrt(sum / buf.length) > .15 ? acc + 1 : Math.max(0, acc - 2);
+        candles.forEach(function (c) { c.style.setProperty('--lean', Math.min(1, acc / 24)); });
+        if (acc > 24) { blow(); return; }
+        requestAnimationFrame(loop);
+      })();
+    }).catch(function () { msg.textContent = '没有拿到麦克风权限，直接点按钮也可以吹灭。'; });
+  });
+
+  // Night sky: stars appear when the room dims; 23 wish stars fly from the candles and draw a heart
+  var sky = $('#sky'), sc = sky.getContext('2d'), W, H, bgS = [], ws = [], ga = 0, skyTarget = 0, t0 = 0, run = false;
+  function fit() { var d = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; sky.width = W * d; sky.height = H * d; sc.setTransform(d, 0, 0, d, 0, 0); }
+  fit(); addEventListener('resize', fit);
+  for (var k = 0; k < 80; k++) bgS.push([Math.random(), Math.random(), Math.random() * 1.2 + .3, Math.random() * 6.28]);
+  function kick() { if (!run) { run = true; requestAnimationFrame(skyTick); } }
+  function clearSky() { ws = []; }
+  function wishStars() {
+    var r = $('#cake').getBoundingClientRect(), s = Math.min(W * .92, 520) / 34, cx = r.left + r.width / 2, cy = r.top + r.height * .4, cs = document.querySelectorAll('.candle');
+    ws = []; t0 = performance.now();
+    for (var i = 0; i < 23; i++) {
+      var a = i / 23 * 6.2832, c = cs[i % 5].getBoundingClientRect();
+      ws.push({ sx: c.left + c.width / 2, sy: c.top + 10,
+        tx: cx + 16 * Math.pow(Math.sin(a), 3) * s,
+        ty: cy - (13 * Math.cos(a) - 5 * Math.cos(2 * a) - 2 * Math.cos(3 * a) - Math.cos(4 * a)) * s + 2 * s,
+        d: calm ? 0 : i * 110, u: calm ? 1 : 1600 });
+    }
+    kick();
+  }
+  function skyTick(now) {
+    sc.clearRect(0, 0, W, H);
+    ga += (skyTarget - ga) * .05;
+    var el = now - t0, cl = function (v) { return Math.max(0, Math.min(1, v)); };
+    sc.fillStyle = '#F6E7D3';
+    bgS.forEach(function (b) { sc.globalAlpha = ga * (.25 + .3 * Math.sin(now / 800 + b[3])); sc.beginPath(); sc.arc(b[0] * W, b[1] * H, b[2], 0, 6.2832); sc.fill(); });
+    sc.globalAlpha = 1; sc.strokeStyle = 'rgba(242,190,85,.4)'; sc.lineWidth = 1;
+    ws.forEach(function (w, i) {
+      var q = ws[(i + 1) % ws.length], lp = cl((el - Math.max(w.d + w.u, q.d + q.u)) / 500);
+      if (lp > 0) { sc.beginPath(); sc.moveTo(w.tx, w.ty); sc.lineTo(w.tx + (q.tx - w.tx) * lp, w.ty + (q.ty - w.ty) * lp); sc.stroke(); }
+    });
+    ws.forEach(function (w, i) {
+      var p = cl((el - w.d) / w.u); if (p <= 0) return;
+      var e = 1 - Math.pow(1 - p, 3), x = w.sx + (w.tx - w.sx) * e, y = w.sy + (w.ty - w.sy) * e - Math.sin(p * 3.1416) * 50;
+      sc.shadowColor = '#F2BE55'; sc.shadowBlur = 14; sc.fillStyle = p < 1 ? '#fff' : '#F2BE55';
+      sc.beginPath(); sc.arc(x, y, 2.6 * (p < 1 ? 1.3 : 1 + .25 * Math.sin(now / 300 + i)), 0, 6.2832); sc.fill();
+    });
+    sc.shadowBlur = 0;
+    if (ws.length || ga > .01 || skyTarget) requestAnimationFrame(skyTick); else { run = false; sc.clearRect(0, 0, W, H); }
+  }
+
+  // Confetti
+  var cv = $('#fx'), ctx = cv.getContext('2d'), parts = [], running = false;
+  function colorOf(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim() || '#F0558A'; }
+  function burst() {
+    if (calm) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+    var palette = [colorOf('--accent'), colorOf('--gold'), colorOf('--icing'), colorOf('--choc')];
+    var r = $('#cake').getBoundingClientRect();
+    var ox = (r.left + r.width / 2) * dpr, oy = (r.top + r.height * 0.42) * dpr;
+    for (var i = 0; i < 110; i++) {
+      parts.push({
+        x: ox, y: oy,
+        vx: (Math.random() - 0.5) * 15 * dpr, vy: (-4 - Math.random() * 12) * dpr,
+        s: (5 + Math.random() * 6) * dpr, a: Math.random() * 6.28, va: (Math.random() - 0.5) * 0.4,
+        c: palette[i % palette.length], life: 0
+      });
+    }
+    if (!running) { running = true; requestAnimationFrame(tick); }
+  }
+  function tick() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    parts.forEach(function (p) {
+      p.vy += 0.32 * (cv.width / innerWidth); p.vx *= 0.99;
+      p.x += p.vx; p.y += p.vy; p.a += p.va; p.life++;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a);
+      ctx.globalAlpha = Math.max(0, 1 - p.life / 170);
+      ctx.fillStyle = p.c; ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2);
+      ctx.restore();
+    });
+    parts = parts.filter(function (p) { return p.life < 170 && p.y < cv.height + 40; });
+    if (parts.length) requestAnimationFrame(tick);
+    else { running = false; ctx.clearRect(0, 0, cv.width, cv.height); }
+  }
+
+  refresh();
+})();
+</script>
+
+</body></html>
