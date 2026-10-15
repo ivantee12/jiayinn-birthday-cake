@@ -208,7 +208,7 @@ body.dim { --fg:#F6E7D3; --muted:#BFA38F; --accent:#F0558A; --accent-fg:#2A0D18;
     </label>
   </div>
 </main>
-<form id="gate" autocomplete="off"><h2>这份礼物是给谁的？</h2><input id="who2" type="text" maxlength="12" aria-label="名字" autocapitalize="off" autocorrect="off" spellcheck="false"><button class="main" type="submit">打开</button><p id="gerr" aria-live="polite"></p></form>
+<form id="gate" autocomplete="off"><h2>这个蛋糕是谁的？</h2><input id="who2" type="text" maxlength="12" aria-label="名字" autocapitalize="off" autocorrect="off" spellcheck="false"><button class="main" type="submit">打开</button><p id="gerr" aria-live="polite"></p></form>
 <div id="dim"></div><canvas id="sky" aria-hidden="true"></canvas><canvas id="fx" aria-hidden="true"></canvas>
 
 <script>
@@ -304,7 +304,7 @@ body.dim { --fg:#F6E7D3; --muted:#BFA38F; --accent:#F0558A; --accent-fg:#2A0D18;
     document.body.classList.toggle('dim', dim); skyTarget = dim ? 1 : 0; kick();
     if (state === 'done') {
       act.textContent = '再来一次'; act.disabled = false;
-      msg.textContent = ' 宝宝，生日快乐❤️ 其实我不太会说什么浪漫的话，但我真的很庆幸，这辈子能遇见你。谢谢你出现在我的生活里，让我有了想要一直陪伴的人。我知道自己不是最完美的男朋友，但我会努力成为那个让你安心、让你幸福的人。希望未来的日子里，不管开心还是难过，我都能陪在你身边。我不希望只陪你过这一次生日，我更希望往后每一年的今天，站在你身边的人依然是我。❤️我爱你，我的宝贝。🥹💕';
+      msg.textContent = ' 宝贝，生日快乐❤️ 其实我不太会说什么浪漫的话，但我真的很庆幸，这辈子能遇见你。谢谢你出现在我的生活里，让我有了想要一直陪伴的人。我知道自己不是最完美的男朋友，但我会努力成为那个让你安心、让你幸福的人。希望未来的日子里，不管开心还是难过，我都能陪在你身边。我不希望只陪你过这一次生日，我更希望往后每一年的今天，站在你身边的人依然是我。❤️我爱你，我的宝贝。🥹💕';
       return;
     }
     if (state === 'busy') { act.disabled = true; return; }
